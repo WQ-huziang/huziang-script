@@ -1,0 +1,14 @@
+#!/usr/bin/expect
+set timeout -1
+set username [lindex $argv 0]
+set password [lindex $argv 1]
+spawn ssh $username@127.0.0.1
+expect {
+    "password" {send "$password\r";}
+    "yes/no" {send "yes\r";exp_continue}
+}
+expect "~" {send "vncserver -kill :90\r"}
+expect "~" {send "exit\r"}
+expect eof
+
+

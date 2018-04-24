@@ -1,0 +1,7 @@
+#!/usr/bin/expect
+set timeout -1
+set username [lindex $argv 0]
+spawn scp -r /home/$username 192.168.0.7:/opt/home/$username
+expect "password:" {send "123.com\r"}
+expect eof
+
